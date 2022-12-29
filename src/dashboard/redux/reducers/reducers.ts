@@ -16,7 +16,7 @@ const initialState: IngredientsState = {
 const ingredientsReducer: Reducer<IngredientsState, any> = (state = initialState, action) => {
     switch(action.type) {
         case ADD_INGREDIENT:
-            return {...state, ingredients: [...state.ingredientsList, action]};
+            return {...state, ingredientsList: [...state.ingredientsList, action]};
 /*        case 'REMOVE_INGREDIENT':
             return [...state,
                 state.filter(val => val !== action.id)

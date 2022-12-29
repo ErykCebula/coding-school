@@ -4,12 +4,17 @@ import 'bootstrap/dist/css/bootstrap.css';
 import {connect} from "react-redux";
 import {ApplicationState} from "../../store/rootReducer";
 import {Ingredient} from "../types/types";
+import {addIngredient} from "../redux/actions/actions";
 type StateProps = {
     ingredients: Ingredient[]
 }
-type Props = StateProps;
 
-const IngredientsSearchBar = ({ingredients}: Props) => {
+type DispatchProps = {
+    addIngredient: typeof addIngredient
+}
+type Props = StateProps & DispatchProps;
+
+const IngredientsSearchBar = ({ingredients, addIngredient}: Props) => {
     const [selectedItem, setSelectedItem] = useState([]); // selectedItem is used for "cleaning input"
 
 
@@ -17,8 +22,8 @@ const IngredientsSearchBar = ({ingredients}: Props) => {
     return <>
             <Typeahead
                 id="basic-example"
-                onChange={() => {}}
-                options={[]}
+                onChange={() => addIngredient({name: "pewki", unit: "kilogramy"})}
+                options={["dupa"]}
                 placeholder="Enter ingredients!"
                 selected={selectedItem}
             />
@@ -29,5 +34,7 @@ const IngredientsSearchBar = ({ingredients}: Props) => {
 export default connect(
     (state: ApplicationState) => ({
         ingredients: state.ingredients.ingredientsList,
-    })
+    }), {
+        addIngredient: addIngredient
+    }
 )(IngredientsSearchBar);
